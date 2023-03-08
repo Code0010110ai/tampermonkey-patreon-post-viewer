@@ -1,0 +1,34 @@
+// ==UserScript==
+// @name            Free Patreon Posts
+// @description     Automatically shows any Patreon post for free.
+// @match           *://*.patreon.com/*
+// @grant           none
+// @version         1.0.0
+// ==/UserScript==
+
+// Find 'lock' content control
+let lockContentCtrl = document.querySelectorAll('[data-testid="post-lock-control"]');
+
+// If found
+if (lockContentCtrl.length > 0) {
+  
+  // Iterate over locks
+  lockContentCtrl.forEach(function (lock) {
+    
+    // Get the unlock button
+    let unlockBtn = lock.querySelector('button');
+    
+    // If there's an unlock button
+    if (unlockBtn !== null) {
+      
+      // Set a click event
+      unlockBtn.addEventListener('click', function () {
+        let event = new Event('mousedown');
+        this.dispatchEvent(event);
+      });
+      
+      // Simulate a click
+      unlockBtn.click();
+    }
+  });
+}
